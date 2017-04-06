@@ -9,9 +9,7 @@ php_cli_apt_ppa: "ppa:ondrej/php"
 
 # List of PHP packages to install
 php_cli_apt_packages:
-  - php5.6-cli
   - php7.0-cli
-  - php7.1-cli
 
 # APT configuration
 php_cli_apt_packages_desired_state: latest
@@ -20,9 +18,7 @@ php_cli_apt_cache_valid_time: 3600
 
 # List of configuration files to modify
 php_cli_config_files:
-  - '/etc/php/5.6/cli/php.ini'
   - '/etc/php/7.0/cli/php.ini'
-  - '/etc/php/7.1/cli/php.ini'
 
 # List of options to modify
 # php_cli_config:
