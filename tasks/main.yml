@@ -1,0 +1,29 @@
+---
+- name: Setup custom PPA repository
+  apt_repository:
+    repo: '{{php_cli_apt_ppa}}'
+  when:
+    - '{{php_cli_apt_use_ppa}}'
+    - '{{php_cli_apt_install_packages}}'
+
+- name: Install PHP CLI packages
+  apt:
+    name: '{{item}}'
+    state: '{{php_cli_apt_packages_desired_state}}'
+    update_cache: '{{php_cli_apt_update_cache}}'
+    cache_valid_time: '{{php_cli_apt_cache_valid_time}}'
+  with_items: '{{php_cli_apt_packages}}'
+  when:
+    - '{{php_cli_apt_install_packages}}'
+
+- name: Set configuration options for PHP CLI
+  ini_file:
+    dest: '{{item[0]}}'
+    section: '{{item[1].section}}'
+    option: '{{item[1].option}}'
+    value: '{{item[1].value}}'
+    backup: True
+  with_nested:
+    - '{{php_cli_config_files}}'
+    - '{{php_cli_config}}'
+  when: php_cli_config is defined
